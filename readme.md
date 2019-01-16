@@ -5,6 +5,7 @@ Here ya'll are. Hopefully it proves helpful in understanding Automata Theory.
 You should just be able to move the threeThirteen folder into your java project along with your other packages, and say
 using threeThirteen;
 to gain access to all the 313 objects
+Additionally, you can try importanting using the jar in releases.
 
 # Notes
 using threeThirteen; ovverides String! if you want your usual strings pack either say threeThirteen.String everytime you use a 313 or say using threeThirteen; and say java.lang.String everytime you use a String. Note that method1("just make a string with quotes") still works fine.
