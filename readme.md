@@ -8,7 +8,7 @@ to gain access to all the 313 objects
 Additionally, you can try importanting using the jar in releases.
 
 # Notes
-using threeThirteen; ovverides String! if you want your usual strings pack either say threeThirteen.String everytime you use a 313 or say using threeThirteen; and say java.lang.String everytime you use a String. Note that method1("just make a string with quotes") still works fine.
+using threeThirteen; overides String! if you want your usual strings pack either say threeThirteen.String everytime you use a 313 or say using threeThirteen; and say java.lang.String everytime you use a String. Note that method1("just make a string with quotes") still works fine.
 
 I used the javatuples library under the permissive free software license for this so Pair documentation is there. Also thanks for the library it worked awesome!
 https://www.javatuples.org/index.html
