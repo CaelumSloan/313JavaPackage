@@ -14,7 +14,7 @@ I used the javatuples library under the permissive free software license for thi
 https://www.javatuples.org/index.html
 
 # Problems with using java to represent theory
-At the present time strings are note explicitly nor exclusively linked to any alphabet.
+At the present time strings are not explicitly nor exclusively linked to any alphabet.
 However, Ben MacAdam's seems to imply alphabets are needed to define a String.
 This is likely a mistake on my part but I'm inclined to keep it around at the very least for convenience, until I find something more decisive as to whether it is necessary to be one way or another.
 
