@@ -16,3 +16,8 @@ This is why all the objects so far (1.0) are immutable.
 That basically boils down to the inability to represent 'for all'. Similarly I can not represent the set of strings over an alphabet or other infinite concepts.
 
 # Installation
+TODO
+
+# Note
+I used the javatuples library under the permissive free software license for this so Pair documentation is there. Also thanks for the library it worked awesome!
+https://www.javatuples.org/index.html
