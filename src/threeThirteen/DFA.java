@@ -10,37 +10,40 @@ import org.javatuples.Pair;
 */
 public class DFA 
 {
-	//A finite set of states.
-	private HashSet<State> Q;
+    //Properties
 	private Alphabet sigma;
-	//Q intersect sigma must = the null set.
 	
-	private Dictionary<Pair<State, Symbol>, State> delta; //
-	private State q0; //must be element of Q
-	private HashSet<State> F; //must be subset of Q
+	//The transition function
+	private Map<Pair<State, Symbol>, State> delta;
+	 //The start state
+	private State q_0;
+	//The set of accepting states
+	private Set<State> F;
 	
+	//Constructors
 	/**
 	 * @throws DFAPropertyInvariantException 
 	    * A DFA has important class invariants. If the parameters given are unsatisfactory this constructor will throw an error.
 	    * @param Q  Finite set of states. Do not use symbols used in sigma.
 	    * @param sigma  An alphabet. Do not use symbols used in Q.
 	    * @param delta  The transition function such that the domain is Q X sigma and the range co-domain is Q.
-	    * @param q0  The starting state. Ensure q0 is an element of Q.
+	    * @param q_0  The starting state. Ensure q0 is an element of Q.
 	    * @param F  Set of accept states. Ensure F is a subset of Q.
 	    */
-	public DFA(HashSet<State> Q, Alphabet sigma, Dictionary<Pair<State, Symbol>, State> delta, State q0, HashSet<State> F) throws DFAPropertyInvariantException 
+	public DFA(Set<State> Q, Alphabet sigma, Map<Pair<State, Symbol>, State> delta, State q_0,  Set<State> F) throws DFAPropertyInvariantException 
 	{
-		if(QSigmaOverlap(Q, sigma) || !deltaDomainRangeCheckProper(delta))
+		if(QSigmaOverlap(Q, sigma) || !deltaDomainRangeCheckProper(Q, sigma, delta) || !Q.contains(q_0) || !FsubsetQCheck(Q, F))
 			throw new DFAPropertyInvariantException();
 		
-		this.Q = Q;
 		this.sigma = sigma;
 		this.delta = delta;
-		this.q0 = q0;
+		this.q_0 = q_0;
 		this.F = F;
 	}
 	
-	private static boolean QSigmaOverlap(HashSet<State> Q, Alphabet sigma) 
+	
+	//Functions
+	private static boolean QSigmaOverlap(Set<State> Q, Alphabet sigma) 
 	{
         for(Symbol symbol : Q) 
         {
@@ -56,17 +59,58 @@ public class DFA
         return false;
 	}
 	
-	private static boolean deltaDomainRangeCheckProper(Dictionary<Pair<State, Symbol>, State> delta) 
+	private static boolean deltaDomainRangeCheckProper(Set<State> Q, Alphabet sigma, Map<Pair<State, Symbol>, State> delta) 
 	{
-		return (!deltaDomainCheckProper(delta.keys()) || !deltaRangeCheckProper(delta.elements()));
+		return deltaDomainCheckProper(Q,  sigma, delta.keySet()) && deltaRangeCheckProper(Q, delta.values());
+	}
+	private static boolean deltaDomainCheckProper(Set<State> Q, Alphabet sigma, Set<Pair<State, Symbol>> domain) 
+	{
+	    for(Pair<State,Symbol> pair : domain) 
+	    {
+	           if (!Q.contains( pair.getValue0()) || !sigma.includes(pair.getValue1()))
+	                return false;
+	    }
+
+        return true;
+	}
+	private static boolean deltaRangeCheckProper(Set<State> Q, Collection<State>  range) 
+	{
+	       for(State state : range) 
+	       { 
+	           if (!Q.contains(state))
+                return false;
+           }
+
+        return true;
 	}
 	
-	private static boolean deltaDomainCheckProper(Enumeration domain) 
+	private static boolean FsubsetQCheck(Set<State> Q, Set<State> F ) 
 	{
-		//TODO
+        for(Symbol symbol : F) 
+        {
+            if (!Q.contains(symbol))
+                return false;
+        }
+        return true;
 	}
-	private static boolean deltaRangeCheckProper(Enumeration range) 
+	
+   /**
+    * @throws IllegalArgumentException
+    * Inputs the symbols into the DFA and returns whether the resulting state is an accepting state.
+    * @param string  A sequence of inputs to feed into the DFA. The string should be over the DFA's alphabet.
+    */
+	public boolean Accepts(String string) 
 	{
-		//TODO
+	    if(!sigma.stringOver(string))
+	        throw new IllegalArgumentException("string must be over the DFA's alphabet!");
+	    State currentState = q_0;
+	    for(Symbol symbol : string.value()) 
+	    {
+	       if(delta.containsKey(Pair.with(currentState, symbol))) 
+	       {
+	           currentState = delta.get(Pair.with(currentState, symbol));
+	       }
+	    }
+	    return F.contains(currentState);
 	}
 }

@@ -9,12 +9,12 @@ import java.util.*;
 public class Language 
 {
 		//Properties
-		private HashSet<String> strings = new HashSet<String>();
+		private Set<String> strings = new HashSet<String>();
 		
 		//Constructors
 		public Language() {}
 		
-		public Language(HashSet<String> strings) 
+		public Language(Set<String> strings) 
 		{
 			this.strings = strings;
 		}
@@ -26,7 +26,7 @@ public class Language
 		}
 
 		//Getter Setters
-		public HashSet<String> strings() 
+		public Set<String> strings() 
 		{
 			return strings;
 		}
@@ -51,8 +51,8 @@ public class Language
 	          
 	        Language a = (Language) o; 
 	        
-	        HashSet<String> thisval = strings();
-	        HashSet<String> aval = a.strings();
+	        Set<String> thisval = strings();
+	        Set<String> aval = a.strings();
 	        
 	        if (thisval.size() != aval.size())
 	        	return false;

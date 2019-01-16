@@ -11,12 +11,12 @@ import threeThirteen.String;
 public class Alphabet 
 {
 	//Properties
-	private HashSet<Symbol> symbols = new HashSet<Symbol>();
+	private Set<Symbol> symbols = new HashSet<Symbol>();
 	
 	//Constructors
 	public Alphabet() {}
 	
-	public Alphabet(HashSet<Symbol> symbols) 
+	public Alphabet(Set<Symbol> symbols) 
 	{
 		this.symbols = symbols;
 	}
@@ -28,7 +28,7 @@ public class Alphabet
 	}
 
 	//Getter Setters
-	public HashSet<Symbol> symbols() 
+	public Set<Symbol> symbols() 
 	{
 		HashSet<Symbol> copy = new HashSet<Symbol>();
 		for(Symbol s : symbols) 
@@ -100,8 +100,8 @@ public class Alphabet
           
         Alphabet a = (Alphabet) o; 
         
-        HashSet<Symbol> thisval = symbols();
-        HashSet<Symbol> aval = a.symbols();
+        Set<Symbol> thisval = symbols();
+        Set<Symbol> aval = a.symbols();
         
         if (thisval.size() != aval.size())
         	return false;

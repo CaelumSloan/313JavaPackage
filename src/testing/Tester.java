@@ -1,5 +1,9 @@
 package testing;
 
+import java.util.*;
+
+import org.javatuples.Pair;
+
 import threeThirteen.*;
 import threeThirteen.String; //Use 313 String - not the java "" String
 
@@ -8,7 +12,8 @@ import threeThirteen.String; //Use 313 String - not the java "" String
 */
 public class Tester 
 {
-	public static void main(java.lang.String[] args)
+	@SuppressWarnings("serial")
+    public static void main(java.lang.String[] args) throws DFAPropertyInvariantException
 	{
 		Symbol tick = new Symbol("tick");
 		
@@ -26,6 +31,38 @@ public class Tester
 		
 		// Decision Problem: Does some string w element of some sigma* belong to a given language L where L is over sigma.
 		
+		
+		//Street light example
+		State redLight = new State("q_r");
+		State yellowLight = new State("q_y");
+		State greenLight = new State("q_g");
+		
+		Set<State> Q = new HashSet<>(Arrays.asList(redLight, yellowLight, greenLight)); 
+		
+		Alphabet streetLightSigma = new Alphabet(tick);
+		
+        Map<Pair<State,Symbol>, State> lowerCaseDelta = new HashMap<Pair<State,Symbol>, State>() {
+        {
+	        put(Pair.with(redLight, tick), greenLight);
+	        put(Pair.with(greenLight, tick), yellowLight);
+	        put(Pair.with(yellowLight, tick), redLight);
+	    }};;
+	    
+	    State startState = redLight;
+		
+	    Set<State> F = new HashSet<>(Arrays.asList(greenLight)); 
+	    
+	     DFA trafficLight = new DFA(Q, streetLightSigma, lowerCaseDelta, startState, F);
+		
+		String string1 = new String(tick);
+		String string2 = new String(tick, tick);
+		String string3 = new String(tick, tick, tick);
+		
+		System.out.println("The traffic light accept string1: " + trafficLight.Accepts(string1));
+		System.out.println("The traffic light accept string2: " + trafficLight.Accepts(string2));
+		System.out.println("The traffic light accept string3: " + trafficLight.Accepts(string3));
+		
+		System.out.println("\n\n");
 		//Tests
 		System.out.println("symbol tick is in sigma: " + sigma.includes(tick));
 		System.out.println("string w over sigma: " + sigma.stringOver(w));
