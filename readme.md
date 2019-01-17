@@ -26,3 +26,7 @@ Despite this, the code is used as if the existence of any one of these objects i
 This is why all the objects so far (1.0) are immutable.
 
 That basically boils down to the inability to represent 'for all'. Similarly I can not represent the set of strings over an alphabet or other infinite concepts.
+
+Languages of a DFA are impossible to build in many cases, as their are infinite strings that result in an accept state. Often their is a pattern easily represented through set builder notation,
+something of which I do not easily have at my disposal in java. In this case a languages of a DFA can be built only if their are finite strings in L and they can be found without testing the
+infinite alphabet (aka set of symbols) sigma* of the DFA.
