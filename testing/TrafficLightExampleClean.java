@@ -29,5 +29,7 @@ public class TrafficLightExampleClean
 	    Set<State> F = new HashSet<>(Arrays.asList(greenLight)); //Set of accept states
 	    
 	    DFA trafficLight = new DFA(Q, sigma, transitionFunction, q0, F);
+	    
+	    //The language of this DFA would be given by L = {w in sigma* | |w| % 3 = 1}
 	}
 }
